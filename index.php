@@ -57,6 +57,7 @@ switch($action) {
             $json = '{
                 "query" : {
                     "query_string" : {
+						"analyze_wildcard": true,
                         "query" : "'.$query.'"
                     }
                 }

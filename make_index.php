@@ -3,6 +3,8 @@ require 'vendor/autoload.php';
 
 use Elasticsearch\ClientBuilder;
 
+
+
 $params = [
     'index' => 'support',
     'body' => [
@@ -14,12 +16,24 @@ $params = [
                 'filter' => [
                     'shingle' => [
                         'type' => 'shingle'
-                    ]
+                    ],
+                    'french_elision' => [
+                        'type' => 'elision',
+                        'articles_case' => true,
+                        'articles' => [
+                        	'l', 'm', 't', 'qu', 'n', 's',
+                        	'j', 'd', 'c', 'jusqu', 'quoiqu',
+                        	'lorsqu', 'puisqu']
+                    ],
+					 'french_stemmer' => [
+                        'type' => 'stemmer',
+                        'name' => 'light_french'
+                    ],
                 ],
         	'analyzer' => [
-                    'ccustom_french_analyzer' => [
+                    'custom_french_analyzer' => [
                         'tokenizer' => 'letter',
-                        'filter' => ['asciifolding', 'lowercase', 'french_stem', 'elision', 'stop']
+                        'filter' => ['asciifolding', 'lowercase', 'french_stemmer', 'french_elision', 'stop']
 					],
 					'tag_analyzer' => [
                         'tokenizer' => 'keyword',
@@ -46,13 +60,13 @@ $params = [
                 'properties' => [
                     'title' => [
                         'type' => 'text',
-                        'analyzer' => 'ccustom_french_analyzer',
+                        'analyzer' => 'custom_french_analyzer',
                         'term_vector' => 'yes',
                         'copy_to' => 'combined'
                     ],
                     'comment' => [
                         'type' => 'text',
-                        'analyzer' => 'ccustom_french_analyzer',
+                        'analyzer' => 'custom_french_analyzer',
                         'term_vector' => 'yes',
                         'copy_to' => 'combined'
                     ],
@@ -71,8 +85,19 @@ $params = [
         ]
     ]
 ];
-// Create index `memo` with ngram indexing
+
+$deleteParams = [
+    'index' => 'support'
+];
+
 $client = ClientBuilder::create()->build();
+$response = $client->indices()->delete($deleteParams);
+print_r($response);
+echo "<hr/>";
+
+
+// Create index `memo` with ngram indexing
 $client->indices()->create($params);
+print_r($response);
 
 ?>
