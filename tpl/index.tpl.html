@@ -1,0 +1,10 @@
+<div class="thumb-holder">
+{foreach from=$data key=k item=i name=n}
+    {if $smarty.foreach.n.index > 1 and $smarty.foreach.n.index is div by 5}
+        </div>
+        <hr>
+        <div class="thumb-holder">
+    {/if}
+    {$i}<br>
+{/foreach}
+</div>

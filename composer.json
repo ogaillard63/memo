@@ -1,0 +1,14 @@
+{
+    "name": "olivier.gaillard/memo",
+    "description": "Base de connaissances",
+    "authors": [
+        {
+            "name": "ogaillard63",
+            "email": "ogaillard63@gmail.com"
+        }
+    ],
+    "require": {
+            "elasticsearch/elasticsearch": "~5.0",
+            "smarty/smarty": "~3.1"
+    }
+}

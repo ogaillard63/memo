@@ -1,0 +1,48 @@
+{if not empty($results)}<div class="row">
+	<div class="search_form">
+		<form role="form" name="form_param" method="post" action="index.php">
+			<div class="input-group">
+				<input type="hidden" name="action" value="search_results" />
+				<input class="form-control" type="text" name="query" value="{$query}" placeholder="Rechercher"/>
+				<span class="input-group-addon">
+					<button type="submit" class="search-btn">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</span>
+			</div>
+		</form>
+	</div>
+	<div class="search-results">
+		<h3 class="results">{$results.total} résultat(s) pour cette recherche</h3>
+	</div>
+	{foreach from=$results.hits item=result}
+	<div class="row search-list">
+		<!--<div class="col-md-1">
+					<span class="badge score">{($result._score/$results.max_score*100)|number_format:0}%</span>
+					</div>-->
+		<div class="col-md-11">
+			<h1 class="title">{$result._source.title}</h1>
+			<p class="comment">{$result._source.comment}</p>
+			<p class="last_update pull-right">{$result._source.lastUpdate|date_format:'%d/%m/%Y %H:%M:%S'}</p>
+		</div>
+		<div class="col-md-1">
+			<a class="btn btn-lg pull-right" href="index.php?action=edit&id={$result._id}"><span class="glyphicon glyphicon-pencil"></span></a>
+		</div>
+	</div>
+	{/foreach}
+</div>{else}
+<div class="row centered">
+	<div class="search_form">
+		<form role="form" name="form_param" method="post" action="index.php">
+			<div class="input-group">
+				<input type="hidden" name="action" value="search_results" />
+				<input class="form-control" type="text" name="query" value="{$query}" placeholder="Rechercher"/>
+				<span class="input-group-addon">
+					<button type="submit" class="search-btn">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</span>
+			</div>
+		</form>
+	</div>
+</div>{/if}

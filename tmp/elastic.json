@@ -1,0 +1,58 @@
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "elision": {
+          "type": "elision",
+          "articles": ["l", "m", "t", "qu", "n", "s", "j", "d"]
+        }
+      },
+      "analyzer": {
+        "custom_french_analyzer": {
+          "tokenizer": "letter",
+          "filter": ["asciifolding", "lowercase", "french_stem", "elision", "stop"]
+        },
+        "tag_analyzer": {
+          "tokenizer": "keyword",
+          "filter": ["asciifolding", "lowercase"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "memos": {
+      "dynamic_templates": [
+        {
+          "secrets": {
+            "match": "secret_*",
+            "match_mapping_type": "string",
+            "mapping": {
+              "analyzer": "custom_french_analyzer",
+              "include_in_all": false
+            }
+          }
+        },
+        {
+          "strings": {
+            "match": "*",
+            "match_mapping_type": "string",
+            "mapping": {
+                "type": "string",
+                "index": "analyzed",
+                "analyzer": "custom_french_analyzer"
+            }
+          }
+        }
+      ],
+      "properties": {
+          "tags": {
+              "type" : "multi_field",
+              "fields" : {
+                  "tags" : {"type" : "string", "index" : "analyzed", "analyzer": "custom_french_analyzer"},
+                  "tel_quel" : {"type" : "string", "index" : "analyzed", "analyzer": "tag_analyzer"}
+              }
+          }
+      }
+    }
+  }
+}

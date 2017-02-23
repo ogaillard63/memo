@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Memo</title>
+  <link rel="shortcut icon" href="tpl/assets/img/favicon.ico">
+  <!-- Bootstrap -->
+  <link href="tpl/assets/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="tpl/assets/plugins/font-awesome/css/font-awesome.min.css">
+  <!-- Customm CSS -->
+  <link href="tpl/assets/css/custom.css" rel="stylesheet">
+  <link href="tpl/assets/summernote/summernote.css" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="tpl/assets/js/bootstrap.min.js"></script>
+  <script src="tpl/assets/js/custom.js"></script>
+  <script src="tpl/assets/summernote/summernote.js"></script>
+
+</head>
+
+<body>
+   {include file="nav.tpl.html"}
+  <div class="container-fluid">
+    {include file="$content"}
+  </div>
+  <!-- /container -->
+  {if (isset($alert))}<div class="alert alert-{$alert.type} alert-dismissable notification" id="flash-msg">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    {$alert.msg}
+  </div>{/if}
+</body>
+</html>
