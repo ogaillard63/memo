@@ -14,7 +14,7 @@ use Elasticsearch\ClientBuilder;
 $client = ClientBuilder::create()->build();
 $params = array();
 $params['index'] = 'support';
-$params['type']  = 'memo';
+$params['type']  = 'memos';
 
 
 // Récupération des variables
@@ -58,7 +58,8 @@ switch($action) {
                 "query" : {
                     "query_string" : {
 						"analyze_wildcard": true,
-                        "query" : "'.$query.'"
+                        "query" : "'.$query.'",
+						"fields":  ["title", "comment"]
                     }
                 }
             }'; 

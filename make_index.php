@@ -48,7 +48,7 @@ $params = [
                 'tokenizer' => [
                     'my_ngram_tokenizer' => [
                         'type' => 'nGram',
-                        'min_gram' => 1,
+                        'min_gram' => 3,
                         'max_gram' => 15,
                         'token_chars' => ['letter', 'digit']
                     ]
@@ -60,21 +60,17 @@ $params = [
                 'properties' => [
                     'title' => [
                         'type' => 'text',
+                        'fielddata' => 'true',
                         'analyzer' => 'custom_french_analyzer',
-                        'term_vector' => 'yes',
-                        'copy_to' => 'combined'
                     ],
                     'comment' => [
                         'type' => 'text',
+                        'fielddata' => 'true',
                         'analyzer' => 'custom_french_analyzer',
-                        'term_vector' => 'yes',
-                        'copy_to' => 'combined'
                     ],
                     'tags' => [
                         'type' => 'text',
                         'analyzer' => 'tag_analyzer',
-                        'term_vector' => 'yes',
-                        'copy_to' => 'combined'
                     ],
                     'last_update' => [
                         'type' => 'date',
